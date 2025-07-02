@@ -1,0 +1,37 @@
+class VacuumCleaner:
+    def __init__(self, grid):
+        self.grid = grid
+        self.position = (0, 0)  
+        self.cleaned = 0
+
+    def clean(self):
+        x, y = self.position
+        if self.grid[x][y] == 1:  
+            self.grid[x][y] = 0  
+            self.cleaned += 1
+            print(f"Cleaned position: {self.position}")
+
+    def move(self, direction):
+        x, y = self.position
+        if direction == 'up' and x > 0:
+            self.position = (x - 1, y)
+        elif direction == 'down' and x < len(self.grid) - 1:
+            self.position = (x + 1, y)
+        elif direction == 'left' and y > 0:
+            self.position = (x, y - 1)
+        elif direction == 'right' and y < len(self.grid[0]) - 1:
+            self.position = (x, y + 1)
+        self.clean()
+
+
+grid = [
+    [1, 0, 0],
+    [0, 1, 1],
+    [0, 0, 0]
+]
+vacuum = VacuumCleaner(grid)
+
+
+vacuum.move('down')
+vacuum.move('right')
+vacuum.move('up')
