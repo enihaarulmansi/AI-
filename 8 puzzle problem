@@ -1,0 +1,44 @@
+import numpy as np
+from queue import PriorityQueue
+
+class PuzzleState:
+    def __init__(self, board, moves=0):
+        self.board = board
+        self.blank_pos = np.where(board == 0)
+        self.moves = moves
+
+    def is_goal(self):
+        return np.array_equal(self.board, np.array([[1, 2, 3], [4, 5, 6], [7, 8, 0]]))
+
+    def get_neighbors(self):
+        neighbors = []
+        x, y = self.blank_pos
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        
+        for dx, dy in directions:
+            new_x, new_y = x + dx, y + dy
+            if 0 <= new_x < 3 and 0 <= new_y < 3:
+                new_board = self.board.copy()
+                new_board[x, y], new_board[new_x, new_y] = new_board[new_x, new_y], new_board[x, y]
+                neighbors.append(PuzzleState(new_board, self.moves + 1))
+        return neighbors
+
+def a_star(start):
+    queue = PriorityQueue()
+    queue.put((0, start))
+    visited = set()
+
+    while not queue.empty():
+        _, current = queue.get()
+        if current.is_goal():
+            return current.moves
+        
+        visited.add(tuple(current.board.flatten()))
+        for neighbor in current.get_neighbors():
+            if tuple(neighbor.board.flatten()) not in visited:
+                queue.put((neighbor.moves, neighbor))
+
+
+initial_board = np.array([[1, 2, 3], [4, 0, 6], [7, 5, 8]])
+start_state = PuzzleState(initial_board)
+print("Minimum moves to solve:", a_star(start_state))
