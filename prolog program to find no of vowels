@@ -1,0 +1,12 @@
+% Base case: An empty string has zero vowels.
+count_vowels([], 0).
+
+% Recursive case: Check if the head of the list is a vowel.
+count_vowels([H|T], Count) :-
+    member(H, [a, e, i, o, u, A, E, I, O, U]), % Check for vowels
+    count_vowels(T, CountTail),
+    Count is CountTail + 1. % Increment count if H is a vowel
+
+count_vowels([H|T], Count) :-
+    \+ member(H, [a, e, i, o, u, A, E, I, O, U]), % If H is not a vowel
+    count_vowels(T, Count). % Continue with the tail
