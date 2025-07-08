@@ -1,0 +1,15 @@
+% Facts representing diseases and their dietary recommendations
+disease_diabetes('low_sugar_diet').
+disease_hypertension('low_sodium_diet').
+disease_obesity('calorie_restricted_diet').
+disease_cholesterol('low_fat_diet').
+
+% Rule to suggest diet based on disease
+suggest_diet(Disease, Diet) :-
+    disease_diabetes(Disease), Diet = 'low_sugar_diet';
+    disease_hypertension(Disease), Diet = 'low_sodium_diet';
+    disease_obesity(Disease), Diet = 'calorie_restricted_diet';
+    disease_cholesterol(Disease), Diet = 'low_fat_diet'.
+
+% Example query
+% ?- suggest_diet(Disease, Diet).
