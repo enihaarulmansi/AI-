@@ -1,0 +1,22 @@
+% Define a predicate for the title tag
+html_title(Title, Tag) :-
+    atom_concat('<title>', Title, Temp),
+    atom_concat(Temp, '</title>', Tag).
+
+% Define a predicate for the anchor tag
+html_anchor(Text, URL, Tag) :-
+    atom_concat('<a href="', URL, Temp1),
+    atom_concat(Temp1, '">', Temp2),
+    atom_concat(Temp2, Text, Temp3),
+    atom_concat(Temp3, '</a>', Tag).
+
+% Define a predicate to combine HTML elements
+html_page(Title, AnchorText, AnchorURL, HTML) :-
+    html_title(Title, TitleTag),
+    html_anchor(AnchorText, AnchorURL, AnchorTag),
+    atom_concat('<html>\n<head>\n', TitleTag, Temp1),
+    atom_concat(Temp1, '\n</head>\n<body>\n', Temp2),
+    atom_concat(Temp2, AnchorTag, Temp3),
+    atom_concat(Temp3, '\n</body>\n</html>', HTML).
+
+% Example query: ?- html_page('My Blog Post', 'Visit xAI', 'https://x.ai', HTML).
