@@ -1,0 +1,56 @@
+% This Prolog program defines facts about fruits and their associated colors.
+% It is designed to illustrate Prolog's backtracking mechanism when querying.
+
+% fruit_color(Fruit, Color).
+% Defines a fact stating that a particular Fruit has a particular Color.
+
+fruit_color(apple, red).
+fruit_color(apple, green).
+fruit_color(apple, yellow).
+fruit_color(banana, yellow).
+fruit_color(grape, purple).
+fruit_color(grape, green).
+fruit_color(lemon, yellow).
+fruit_color(orange, orange).
+fruit_color(strawberry, red).
+fruit_color(blueberry, blue).
+
+% Example queries to demonstrate backtracking:
+
+% 1. What color is an apple?
+% ?- fruit_color(apple, Color).
+% Color = red ;   % Prolog finds the first match
+% Color = green ; % On backtracking (pressing ';'), it finds the next
+% Color = yellow. % And the next, until no more matches are found.
+
+% 2. What fruit is red?
+% ?- fruit_color(Fruit, red).
+% Fruit = apple ;
+% Fruit = strawberry.
+
+% 3. What fruits are yellow?
+% ?- fruit_color(Fruit, yellow).
+% Fruit = apple ;
+% Fruit = banana ;
+% Fruit = lemon.
+
+% 4. List all fruit-color pairs:
+% ?- fruit_color(Fruit, Color).
+% Fruit = apple, Color = red ;
+% Fruit = apple, Color = green ;
+% Fruit = apple, Color = yellow ;
+% Fruit = banana, Color = yellow ;
+% Fruit = grape, Color = purple ;
+% Fruit = grape, Color = green ;
+% Fruit = lemon, Color = yellow ;
+% Fruit = orange, Color = orange ;
+% Fruit = strawberry, Color = red ;
+% Fruit = blueberry, Color = blue.
+
+% 5. Find if a specific fruit-color combination exists:
+% ?- fruit_color(banana, yellow).
+% true.
+
+% 6. Find if a non-existent fruit-color combination exists:
+% ?- fruit_color(apple, blue).
+% false.
