@@ -1,0 +1,25 @@
+% sum_up_to(N, Sum)
+% This predicate calculates the sum of integers from 1 to N.
+
+% Base case: The sum up to 0 is 0.
+sum_up_to(0, 0).
+
+% Recursive case:
+% To find the sum up to N, we sum N with the sum up to N-1.
+% N_minus_1 is N - 1.
+% Recursive_sum is the sum up to N_minus_1.
+% Sum is N + Recursive_sum.
+sum_up_to(N, Sum) :-
+    N > 0,              % Ensure N is a positive integer
+    N_minus_1 is N - 1, % Calculate N-1
+    sum_up_to(N_minus_1, Recursive_sum), % Recursively find the sum up to N-1
+    Sum is N + Recursive_sum. % Add N to the recursive sum to get the final sum
+
+% Example usage:
+% To find the sum up to 5:
+% ?- sum_up_to(5, S).
+% S = 15.
+
+% To find the sum up to 10:
+% ?- sum_up_to(10, Result).
+% Result = 55.
