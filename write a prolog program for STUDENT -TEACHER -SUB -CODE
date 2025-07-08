@@ -1,0 +1,23 @@
+% Facts
+student(john_doe).
+student(jane_smith).
+
+teacher(mr_jones).
+teacher(ms_brown).
+
+subject(math, 101).
+subject(science, 102).
+
+teaches(mr_jones, math).
+teaches(ms_brown, science).
+
+enrolled(john_doe, math).
+enrolled(jane_smith, science).
+
+% Rules
+student_teacher(Student, Teacher) :-
+    enrolled(Student, Subject),
+    teaches(Teacher, Subject).
+
+subject_code(Subject, Code) :-
+    subject(Subject, Code).
