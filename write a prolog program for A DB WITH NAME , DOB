@@ -1,0 +1,39 @@
+% This Prolog program defines a simple database of people with their names and dates of birth.
+% Each fact represents a person and their birth date.
+
+% person(Name, DateOfBirth)
+% Name is an atom (e.g., 'john_doe')
+% DateOfBirth is a term representing the date, e.g., date(Year, Month, Day)
+
+person('john_doe', date(1985, 10, 26)).
+person('jane_smith', date(1992, 3, 15)).
+person('peter_jones', date(1978, 7, 1)).
+person('alice_williams', date(2000, 1, 5)).
+person('bob_brown', date(1965, 11, 30)).
+
+% Example queries:
+
+% To find John Doe's date of birth:
+% ?- person('john_doe', DOB).
+% DOB = date(1985, 10, 26).
+
+% To find all people born in 1992:
+% ?- person(Name, date(1992, Month, Day)).
+% Name = jane_smith,
+% Month = 3,
+% Day = 15.
+
+% To find all people born in October:
+% ?- person(Name, date(Year, 10, Day)).
+% Name = john_doe,
+% Year = 1985,
+% Day = 26.
+
+% To list all people in the database:
+% ?- person(Name, DOB).
+% Name = john_doe, DOB = date(1985, 10, 26) ;
+% Name = jane_smith, DOB = date(1992, 3, 15) ;
+% Name = peter_jones, DOB = date(1978, 7, 1) ;
+% Name = alice_williams, DOB = date(2000, 1, 5) ;
+% Name = bob_brown, DOB = date(1965, 11, 30).
+
