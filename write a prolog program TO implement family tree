@@ -1,0 +1,18 @@
+% Facts
+parent(john, mary).
+parent(john, mike).
+parent(susan, mary).
+parent(susan, mike).
+parent(mike, tom).
+parent(mike, jerry).
+
+% Rules
+sibling(X, Y) :- parent(Z, X), parent(Z, Y), X \= Y.
+grandparent(X, Y) :- parent(X, Z), parent(Z, Y).
+
+% Queries
+% To find siblings of Mary:
+% ?- sibling(mary, Sibling).
+
+% To find grandparents of Tom:
+% ?- grandparent(Grandparent, tom).
