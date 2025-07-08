@@ -1,0 +1,46 @@
+% This Prolog program solves the classic Tower of Hanoi puzzle.
+% It provides a predicate to print the steps required to move N disks
+% from a source peg to a destination peg using an auxiliary peg.
+
+% hanoi(N, Source, Auxiliary, Destination)
+% N: The number of disks to move.
+% Source: The starting peg (e.g., 'peg1').
+% Auxiliary: The intermediate/helper peg (e.g., 'peg2').
+% Destination: The final peg (e.g., 'peg3').
+
+% Base case: If there's only 1 disk, move it directly from Source to Destination.
+hanoi(1, Source, _, Destination) :-
+    format('Move disk 1 from ~w to ~w~n', [Source, Destination]).
+
+% Recursive case: To move N disks from Source to Destination using Auxiliary:
+% 1. Move N-1 disks from Source to Auxiliary, using Destination as temporary.
+% 2. Move the Nth (largest) disk from Source to Destination.
+% 3. Move N-1 disks from Auxiliary to Destination, using Source as temporary.
+hanoi(N, Source, Auxiliary, Destination) :-
+    N > 1, % Ensure N is greater than 1 for the recursive step
+    N_minus_1 is N - 1, % Calculate N-1
+
+    % Step 1: Move N-1 disks from Source to Auxiliary, using Destination as temporary
+    hanoi(N_minus_1, Source, Destination, Auxiliary),
+
+    % Step 2: Move the Nth disk from Source to Destination
+    format('Move disk ~w from ~w to ~w~n', [N, Source, Destination]),
+
+    % Step 3: Move N-1 disks from Auxiliary to Destination, using Source as temporary
+    hanoi(N_minus_1, Auxiliary, Source, Destination).
+
+% Example usage:
+% To solve Tower of Hanoi for 3 disks, moving from 'A' to 'C' using 'B':
+% ?- hanoi(3, 'A', 'B', 'C').
+% Move disk 1 from A to C
+% Move disk 2 from A to B
+% Move disk 1 from C to B
+% Move disk 3 from A to C
+% Move disk 1 from B to A
+% Move disk 2 from B to C
+% Move disk 1 from A to C
+% true.
+
+% To solve for 4 disks:
+% ?- hanoi(4, 'Left', 'Middle', 'Right').
+% (This will print 15 steps)
