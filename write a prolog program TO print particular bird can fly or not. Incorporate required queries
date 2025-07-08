@@ -1,0 +1,71 @@
+% This Prolog program defines facts about birds and their ability to fly.
+
+% can_fly(BirdName).
+% This predicate is true if the given bird can fly.
+
+% Facts: Birds that can fly
+can_fly(sparrow).
+can_fly(eagle).
+can_fly(pigeon).
+can_fly(robin).
+can_fly(falcon).
+
+% cannot_fly(BirdName).
+% This predicate is true if the given bird cannot fly.
+
+% Facts: Birds that cannot fly
+cannot_fly(penguin).
+cannot_fly(ostrich).
+cannot_fly(kiwi).
+cannot_fly(emu).
+
+% is_flying_bird(BirdName)
+% This rule checks if a bird can fly.
+is_flying_bird(BirdName) :-
+    can_fly(BirdName).
+
+% is_non_flying_bird(BirdName)
+% This rule checks if a bird cannot fly.
+is_non_flying_bird(BirdName) :-
+    cannot_fly(BirdName).
+
+% Example queries:
+
+% 1. Can a sparrow fly?
+% ?- is_flying_bird(sparrow).
+% true.
+
+% 2. Can an ostrich fly?
+% ?- is_flying_bird(ostrich).
+% false.
+
+% 3. Which birds can fly?
+% ?- is_flying_bird(Bird).
+% Bird = sparrow ;
+% Bird = eagle ;
+% Bird = pigeon ;
+% Bird = robin ;
+% Bird = falcon.
+
+% 4. Which birds cannot fly?
+% ?- is_non_flying_bird(Bird).
+% Bird = penguin ;
+% Bird = ostrich ;
+% Bird = kiwi ;
+% Bird = emu.
+
+% 5. Is 'eagle' a non-flying bird?
+% ?- is_non_flying_bird(eagle).
+% false.
+
+% 6. Check if a specific bird exists in either category (can or cannot fly)
+% ?- can_fly(X) ; cannot_fly(X).
+% X = sparrow ;
+% X = eagle ;
+% X = pigeon ;
+% X = robin ;
+% X = falcon ;
+% X = penguin ;
+% X = ostrich ;
+% X = kiwi ;
+% X = emu.
