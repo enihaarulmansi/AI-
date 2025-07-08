@@ -1,0 +1,46 @@
+class MapColoring:
+    def __init__(self, graph, colors):
+        self.graph = graph
+        self.colors = colors
+        self.assignment = {}
+
+    def is_safe(self, node, color):
+        for neighbor in self.graph[node]:
+            if neighbor in self.assignment and self.assignment[neighbor] == color:
+                return False
+        return True
+
+    def backtrack(self):
+        if len(self.assignment) == len(self.graph):
+            return self.assignment
+        
+        node = self.select_unassigned_variable()
+        for color in self.colors:
+            if self.is_safe(node, color):
+                self.assignment[node] = color
+                result = self.backtrack()
+                if result:
+                    return result
+                del self.assignment[node]
+        return None
+
+    def select_unassigned_variable(self):
+        for node in self.graph:
+            if node not in self.assignment:
+                return node
+        return None
+
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+colors = ['Red', 'Green', 'Blue']
+
+map_coloring = MapColoring(graph, colors)
+solution = map_coloring.backtrack()
+print(solution)
