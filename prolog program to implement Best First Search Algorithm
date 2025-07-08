@@ -1,0 +1,31 @@
+% Define the graph as edges with costs
+edge(a, b, 1).
+edge(a, c, 4).
+edge(b, d, 2).
+edge(c, d, 1).
+edge(d, e, 3).
+
+% Heuristic function
+heuristic(a, 7).
+heuristic(b, 6).
+heuristic(c, 2).
+heuristic(d, 1).
+heuristic(e, 0).
+
+% Best First Search implementation
+best_first_search(Start, Goal, Path) :-
+    best_first_search([[Start]], Goal, Path).
+
+best_first_search([[Goal|Visited]|_], Goal, Path) :-
+    reverse([Goal|Visited], Path).
+
+best_first_search([Visited|Rest], Goal, Path) :-
+    findall([Next, Visited|Rest], 
+            (edge(Current, Next, _), 
+             \+ member(Next, Visited), 
+             heuristic(Next, H),
+             Current = Visited, 
+             H), 
+            NextPaths),
+    sort(NextPaths, SortedPaths),
+    best_first_search(SortedPaths, Goal, Path).
