@@ -1,0 +1,26 @@
+% Define facts
+fact(a).
+fact(b).
+
+% Define rules
+rule(c) :- fact(a), fact(b).
+rule(d) :- fact(c).
+
+% Forward chaining implementation
+forward_chain :-
+    findall(X, rule(X), NewFacts),
+    assert_facts(NewFacts),
+    (NewFacts \= [] -> forward_chain ; true).
+
+% Assert new facts
+assert_facts([]).
+assert_facts([H|T]) :-
+    \+ fact(H),  % Check if the fact does not already exist
+    assert(fact(H)),
+    assert_facts(T).
+
+% Query to start forward chaining
+start_forward_chaining :-
+    forward_chain,
+    findall(X, fact(X), Facts),
+    write('Derived Facts: '), write(Facts), nl.
